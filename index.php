@@ -19,4 +19,5 @@ require_once "router.php";
 // Определяем текущий роут
 $route = getRoute();
 // Загружаем
-if( $route != null ) loadFrame($route);
+if( $route['error'] === false ) loadFrame($route);
+else sendAnswer(false, ["Request frame [{$route['request_url']}] is missing!"]);

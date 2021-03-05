@@ -1,8 +1,4 @@
-#Header set Access-Control-Allow-Origin "*"
-Header set Origin: "*"
-Header set Vary: Origin
 Header set Content-Type: "application/json"
-Header set Authorization: ""
 
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
