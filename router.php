@@ -7,7 +7,7 @@ $routes = dbquery("SELECT * FROM routes");
 // Получение текущего роута
 function getRoute(){
     global $routes;
-    $url = explode("?", str_replace("sdo/", "", trim($_SERVER['REQUEST_URI'], "/")))[0];
+    $url = explode("?", str_replace("slt/", "", trim($_SERVER['REQUEST_URI'], "/")))[0];
     foreach($routes as $route){
         if( ($route['url'] == $url ) && $_SERVER['REQUEST_METHOD'] == $route['method'] ){
             $route['error'] = false;
