@@ -1,13 +1,9 @@
 <?php
 /* 
     Роуты:
-    <ссылка>, <метод загрузки>, <обязательные параметры(;)>, <мэйнфрейм>
+    url: <ссылка>, method: <метод загрузки>, requiredOptions: <обязательные параметры(;)>, mainframe: <мэйнфрейм>
 */
-$routes = [
-    ["url" => "account/auth", "method" => "GET", "requiredOptions" => "login;password", "mainframe" => "php/auth.php"],
-    ["url" => "student/choice", "method" => "GET", "requiredOptions" => "type", "mainframe" => "php/student_auth.php"],
-    ["url" => "account/create", "method" => "GET", "requiredOptions" => "session;firstname;lastname;middlename;login;password", "mainframe" => "php/account_create.php"]
-];
+$routes = dbquery("SELECT * FROM routes");
 // Получение текущего роута
 function getRoute(){
     global $routes;
