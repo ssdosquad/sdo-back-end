@@ -3,7 +3,7 @@
 header("Access-Control-Allow-Origin: *");
 $login = $options['login'];
 $password = $options['password'];
-$stime = time();
+$stime = 3600;
 // Пытаемся получить подруг из базы
 if( ($query = dbquery("SELECT id, password, atype FROM accounts WHERE login = '{$login}'")) != null ){
     // Если пароль подходит, генерируем сессию
