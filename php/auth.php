@@ -12,8 +12,8 @@ if( ($query = dbquery("SELECT id, password, atype FROM accounts WHERE login = '{
         $skey = hash("sha256", $id.time());
         $ip = $_SERVER["REMOTE_ADDR"];
         // Если смог добавиться в базу, значит даём добро
-        if( dbexecute("INSERT INTO sessions (ip, aid, skey, stime) VALUES ('{$ip}', '{$id}', '{$skey}', '{$stime})") ){
-            sendAnswer(true, ["session" => $skey, "atype" => $query['atype'], "stime" => $stime]);
+        if( dbexecute("INSERT INTO sessions (ip, aid, skey, stime) VALUES ('{$ip}', '{$id}', '{$skey}', '{$stime}')") ){
+            sendAnswer(true, ["session" => $skey, "atype" => $query[0]['atype'], "stime" => $stime]);
         }
     }
     sendAnswer(false, ["Неверный пароль"]);
