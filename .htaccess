@@ -3,4 +3,4 @@ Header set Content-Type: "application/json"
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^.*$ /sdo/index.php [L,QSA]
+RewriteRule ^.*$ /slt/index.php [L,QSA]
