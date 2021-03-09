@@ -13,7 +13,7 @@ if( ($query = dbquery("SELECT id, password, atype FROM accounts WHERE login = '{
         $ip = $_SERVER["REMOTE_ADDR"];
         // Если смог добавиться в базу, значит даём добро
         if( dbexecute("INSERT INTO sessions (ip, aid, skey, stime) VALUES ('{$ip}', '{$id}', '{$skey}', '{$stime})") ){
-            sendAnswer(true, ["session" => $skey, "atype" => $query['atype']]);
+            sendAnswer(true, ["session" => $skey, "atype" => $query['atype'], "stime" => $stime]);
         }
     }
     sendAnswer(false, ["Неверный пароль"]);
