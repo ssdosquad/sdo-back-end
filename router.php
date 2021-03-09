@@ -5,7 +5,7 @@
 */
 try{
     $routes = dbquery("SELECT * FROM routes");
-}catch($e){
+}catch(exception $e){
     sendAnswer(false, ["Routes was not loaded"]);
 }
 // Получение текущего роута
