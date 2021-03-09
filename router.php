@@ -3,7 +3,11 @@
     Роуты:
     url: <ссылка>, method: <метод загрузки>, requiredOptions: <обязательные параметры(;)>, mainframe: <мэйнфрейм>
 */
-$routes = dbquery("SELECT * FROM routes");
+try{
+    $routes = dbquery("SELECT * FROM routes");
+}catch($e){
+    sendAnswer(false, ["Routes was not loaded"]);
+}
 // Получение текущего роута
 function getRoute(){
     global $routes;
