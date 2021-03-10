@@ -20,12 +20,14 @@ switch($type){
         if(empty($options['sid'])) sendAnswer(false, ["Argument [sid] is missing!"]);
         // Определяем переменные
         $sid = $options['sid'];
+        // Время сессии (3 часа)
+        $stime = time()+10800; 
         // Если не находим авторизацию этого пользователя в базе
         if( ($query = dbquery("SELECT * FROM student_auth WHERE sid = '{$sid}' AND closed = '0' LIMIT 1")) == null ){
             // Создаём ключ сессии студента и записываем всё это в базу
             $skey = hash("sha256", time().$sid);
-            if( dbexecute("INSERT INTO student_auth (sid, skey) VALUES ('{$sid}', '{$skey}')") ){
-                sendAnswer(true, ["session" => $skey]);
+            if( dbexecute("INSERT INTO student_auth (sid, skey, stime) VALUES ('{$sid}', '{$skey}', '{$stime}')") ){
+                sendAnswer(true, ["session" => $skey, "stime" => ($stime - time())]);
             }
         }
         sendAnswer(false, ["Этот студент уже авторизован на другом устройстве"]);
