@@ -1,19 +1,18 @@
 <?php
 // Берём переменные
-$firstname = $options['firstname'];
-$lastname = $options['lastname'];
-$middlename = $options['middlename'];
+$students = $options['students'];
 $gid = $options['gid'];
-// Проверяем данные
-$errors = [];
-if(strlen($firstname) > 255 || strlen($firstname) < 2) $errors[] = "Firstname > 255 symbols or < 2";
-if(strlen($lastname) > 255 || strlen($lastname) < 2) $errors[] = "Lastname > 255 symbols or < 2";
-if(strlen($middlename) > 255 || strlen($middlename) < 2) $errors[] = "Middlename > 255 symbols or < 2";
-// Если ошибки есть - выкидываем нас.
-if(count($errors) > 0) sendAnswer(false, $errors);
-// Если ошибок нет, просто записываем новосозданного мученика в базу
-if( dbexecute("INSERT INTO students (firstname, lastname, middlename, gid) VALUES ('{$firstname}','{$lastname}','{$middlename}','{$gid}')") ){
-    sendAnswer(true, ['id' => dbid()]);
-    
+// Проверяем данные и записываем в базу
+for($i = 0; $i < count($students); $i++){
+    $errors = [];
+    if(strlen($students[$i]['firstname']) > 255 || strlen($students[$i]['firstname']) < 2) $errors[] = "Firstname[{$i}] > 255 symbols or < 2";
+    if(strlen($students[$i]['lastname']) > 255 || strlen($students[$i]['lastname']) < 2) $errors[] = "Lastname[{$i}] > 255 symbols or < 2";
+    if(strlen($students[$i]['middlename']) > 255) $errors[] = "Middlename[{$i}] > 255 symbols";
+    // Если ошибки есть - выкидываем нас.
+    if(count($errors) > 0) sendAnswer(false, $errors);
+    // Записываем новосозданного мученика
+    if( dbexecute("INSERT INTO students (firstname, lastname, middlename, gid) VALUES ('{$students[$i]['firstname']}','{$students[$i]['lastname']}','{$students[$i]['middlename']}','{$gid}')") ){
+        sendAnswer(true, ['id' => dbid()]);
+    }
 }
 sendAnswer(false, ["Неизвестная ошибка базы данных"]);
