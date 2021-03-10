@@ -30,5 +30,16 @@ switch($type){
         }
         sendAnswer(false, ["Этот студент уже авторизован на другом устройстве"]);
         break;
+    case "signout":
+        // Определяем ключ авторизации студента
+        $studkey = $options['studkey'];
+        // Отключаем сессию, если есть активная
+        if( ($query = dbquery("SELECT * FROM student_auth WHERE closed = '0' AND skey = '{$skey}' LIMIT 1")) != null ){
+            if( dbexecute("UPDATE student_auth SET closed = '1' WHERE skey = '{$skey}' LIMIT 1") ){
+                sendAnswer(true, []);
+            }
+        }
+        sendAnswer(false, ["Нет активной сессии с этим ключом"]);
+        break;
 }
 sendAnswer(false, ["Неверный тип у запроса"]);
