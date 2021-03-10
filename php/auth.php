@@ -3,7 +3,7 @@
 header("Access-Control-Allow-Origin: *");
 $login = $options['login'];
 $password = $options['password'];
-$stime = 3600;
+$stime = time()+3600;
 // Пытаемся получить подруг из базы
 if( ($query = dbquery("SELECT id, password, atype FROM accounts WHERE login = '{$login}'")) != null ){
     // Если пароль подходит, генерируем сессию
@@ -13,7 +13,7 @@ if( ($query = dbquery("SELECT id, password, atype FROM accounts WHERE login = '{
         $ip = $_SERVER["REMOTE_ADDR"];
         // Если смог добавиться в базу, значит даём добро
         if( dbexecute("INSERT INTO sessions (ip, aid, skey, stime) VALUES ('{$ip}', '{$id}', '{$skey}', '{$stime}')") ){
-            sendAnswer(true, ["session" => $skey, "atype" => $query[0]['atype'], "stime" => $stime]);
+            sendAnswer(true, ["session" => $skey, "atype" => $query[0]['atype'], "stime" => ($stime-time())]);
         }
     }
     sendAnswer(false, ["Неверный пароль"]);
