@@ -14,7 +14,7 @@ if(strlen($middlename) > 255 || strlen($middlename) < 2) $errors[] = "Middlename
 // Если ошибки есть - выкидываем нас.
 if(count($errors) > 0) sendAnswer(false, $errors);
 // Если ошибок нет, просто записываем новосозданного мученика в базу
-if( dbexecute("UPDATE students SET firstname = '{$firstname}', lastname = '{$lastname}', middlename = '{$middlename}', gid = '{$gid}' WHERE id = '{$sid}' LIMIT 1)") ){
+if( dbexecute("UPDATE students SET firstname = '{$firstname}' lastname = '{$lastname}' middlename = '{$middlename}' gid = '{$gid}' WHERE id = '{$sid}' LIMIT 1)") ){
     sendAnswer(true, []);    
 }
 sendAnswer(false, ["Неизвестная ошибка базы данных"]);
